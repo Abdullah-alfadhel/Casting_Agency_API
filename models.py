@@ -1,6 +1,7 @@
 import os
 from sqlalchemy import Column, String, Integer, create_engine
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 import json
 
 
@@ -17,6 +18,14 @@ def setup_db(app, database_path=database_path):
     db.init_app(app)
     db.create_all()
 
+def setup_migrations(app):
+    migrate = Migrate(app, db)
+
+
+def create_and_drop_all():
+    # db.drop_all()
+    db.create_all()
+
 
 '''
 Movies
@@ -28,8 +37,8 @@ class Movies(db.Model):
     __tablename__ = 'movies'
 
     id = Column(Integer, primary_key=True)
-    title = Column(String)
-    release_date = Column(String)
+    title = db.Column(db.String(), nullable=False)
+    release_date = db.Column(db.Date(), nullable=False)
 
     def __init__(self, title, release_date):
         self.title = title
@@ -66,9 +75,9 @@ class Actors(db.Model):
     __tablename__ = 'actors'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String)
-    age = Column(Integer)
-    gender = Column(String)
+    name = db.Column(db.String(), nullable=False)
+    age = db.Column(db.Integer(), nullable=False)
+    gender = db.Column(db.String(), nullable=False)
 
     def __init__(self, name, age, gender):
         self.name = name
