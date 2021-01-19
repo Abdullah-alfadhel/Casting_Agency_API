@@ -61,10 +61,7 @@ To run the server, execute:
 . ./setup.sh
 flask run --reload
 ```
-
-#### Flask run tests with token headers set in the setup.sh file. If they have expired, please login using the credentials below and replace them in setup.sh and run setup.sh again
-
-setup.sh has all the environment variables needed for the project. The app may fail if they are not set properly. If that happens just copy paste lines from setup.sh on you CLI.
+If the setup.sh file didn't execute please copy and paste the lines one by one to your terminal.
 
 ###### To test live APIs use Postman requests. Add Auth token headers from logins below to test.
 
