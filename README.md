@@ -59,30 +59,32 @@ To run the server, execute:
 
 ```bash
 . ./setup.sh
-flask run
+flask run --reload
 ```
 
-#### Flask run tests with token headers set in the environment. If they have expired, you need to login using the credentials below and replace them in setup.sh and run setup.sh again
+#### Flask run tests with token headers set in the setup.sh file. If they have expired, please login using the credentials below and replace them in setup.sh and run setup.sh again
 
 setup.sh has all the environment variables needed for the project. The app may fail if they are not set properly. If that happens just copy paste lines from setup.sh on you CLI.
+
+###### To test live APIs use Postman requests. Add Auth token headers from logins below to test.
+
+Auth0 login url:
+
+https://dev-exc8ii15.us.auth0.com/authorize?audience=cap&response_type=token&client_id=ECTG0uBj6b6Y7frXy7LrZEBdSR7AmW2P&redirect_uri=https://127.0.0.1:5000/result
+
+There is 3 accounts for the 3 roles in the API:
+
+1- Casting Assistant
+casting Assistant username: as@a.com Password: 055914099Kk
+2- Casting director
+Casting director username: aa@aa.com 055914099Kk
+3- Executive Producer
+Executive Producer username: az@az.com 055914099Kk
+
 
 # Project deployed at
 
 https://fsnd-capstone1.herokuapp.com/
-
-###### To test live APIs use Postman requests. Add Auth token headers from logins below to test.
-
-Auth0 login url. There are three logins atm, JWTs for these appear in the url after successful login. Those tokens are needed to test the different APIs.
-
-
-https://dev-exc8ii15.us.auth0.com/authorize?audience=cap&response_type=token&client_id=ECTG0uBj6b6Y7frXy7LrZEBdSR7AmW2P&redirect_uri=https://127.0.0.1:5000/result
-
-
-casting Assistant username: as@a.com Password: 055914099Kk
-
-Casting director username: aa@aa.com 055914099Kk
-
-Executive Producer username: az@az.com 055914099Kk
 
 ## Testing
 
@@ -92,7 +94,6 @@ To run the tests, run
 python test_app.py
 ```
 
-The tests print data returned from the APIs along with API logs.
 
 #### The tests uses the tokens in the setup.sh please update the tokens.
 
