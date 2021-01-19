@@ -6,9 +6,9 @@ from jose import jwt
 from urllib.request import urlopen
 
 
-AUTH0_DOMAIN = environ.get('AUTH0_DOMAIN', 'dev-exc8ii15.us.auth0.com')
+AUTH0_DOMAIN = environ.get('AUTH0_DOMAIN')
 ALGORITHMS = ['RS256']
-API_AUDIENCE = environ.get('API_AUDIENCE', 'cap')
+API_AUDIENCE = environ.get('API_AUDIENCE')
 
 # AuthError Exception
 '''

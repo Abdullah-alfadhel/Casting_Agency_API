@@ -3,7 +3,7 @@ from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from models import db, Movies, Actors, setup_db, setup_migrations
-from .auth.auth import AuthError, requires_auth
+from auth import AuthError, requires_auth
 
 def create_app(test_config=None):
   # create and configure the app
@@ -21,8 +21,8 @@ def create_app(test_config=None):
       return response
   
   @app.route('/movies', methods=['GET'])
-  @requires_auth('get:drinks-detail')
-  def get_movies():
+  @requires_auth('get:movies')
+  def get_movies(payload):
       movies = Movies.query.all()
       print(movies, 'this is it')
       data = [movie.format() for movie in movies]
@@ -33,8 +33,8 @@ def create_app(test_config=None):
           }), 200
   
   @app.route('/movies/<int:movie_id>', methods=['GET'])
-  @requires_auth('get:drinks-detail')
-  def get_movie(movie_id):
+  @requires_auth('get:movies')
+  def get_movie(payload, movie_id):
       movie = Movies.query.filter_by(id=movie_id).all()
       print(movie, 'this is it')
 
@@ -47,8 +47,8 @@ def create_app(test_config=None):
           }), 200
   
   @app.route('/actors', methods=['GET'])
-  @requires_auth('get:drinks-detail')
-  def get_actors():
+  @requires_auth('get:actors')
+  def get_actors(payload):
       actors = Actors.query.all()
       print(actors, 'this is it')
       
@@ -61,8 +61,8 @@ def create_app(test_config=None):
           }), 200
   
   @app.route('/actors/<int:actor_id>', methods=['GET'])
-  @requires_auth('get:drinks-detail')
-  def get_actor(actor_id):
+  @requires_auth('get:actors')
+  def get_actor(payload, actor_id):
       actor = Actors.query.filter_by(id=actor_id).all()
       print(actor, 'this is it')
 
@@ -75,8 +75,8 @@ def create_app(test_config=None):
           }), 200
   
   @app.route('/movies/<int:movie_id>', methods=['DELETE'])
-  @requires_auth('get:drinks-detail')
-  def delete_movie(movie_id):
+  @requires_auth('delete:movie')
+  def delete_movie(payload, movie_id):
       movie = Movies.query.filter(Movies.id == movie_id).one_or_none()
 
       if not movie:
@@ -93,8 +93,8 @@ def create_app(test_config=None):
           }), 200
   
   @app.route('/actors/<int:actor_id>', methods=['DELETE'])
-  @requires_auth('get:drinks-detail')
-  def delete_actor(actor_id):
+  @requires_auth('delete:actor')
+  def delete_actor(payload, actor_id):
       actor = Actors.query.filter(Actors.id == actor_id).one_or_none()
 
       if not actor:
@@ -111,11 +111,12 @@ def create_app(test_config=None):
           }), 200
   
   @app.route('/movies', methods=['POST'])
-  @requires_auth('get:drinks-detail')
-  def create_movie():
+  @requires_auth('post:movies')
+  def create_movie(payload):
       req = request.get_json()
-
+      print(req)
       try:
+          print('i am in the try')
           movie = Movies(title = req['title'], release_date = req['release_date'])
           movie.insert()
 
@@ -128,8 +129,8 @@ def create_app(test_config=None):
           }), 200
   
   @app.route('/actors', methods=['POST'])
-  @requires_auth('get:drinks-detail')
-  def create_actor():
+  @requires_auth('post:actors')
+  def create_actor(payload):
       req = request.get_json()
 
       try:
@@ -145,8 +146,8 @@ def create_app(test_config=None):
           }), 200
   
   @app.route('/movies/<int:movie_id>', methods=['PATCH'])
-  @requires_auth('get:drinks-detail')
-  def patch_movie(movie_id):
+  @requires_auth('patch:movie')
+  def patch_movie(payload, movie_id):
       req = request.get_json()
       movie = Movies.query.filter(Movies.id == movie_id).one_or_none()
 
@@ -172,8 +173,8 @@ def create_app(test_config=None):
           }), 200
   
   @app.route('/actors/<int:actor_id>', methods=['PATCH'])
-  @requires_auth('get:drinks-detail')
-  def patch_actor(actor_id):
+  @requires_auth('patch:actor')
+  def patch_actor(payload, actor_id):
       req = request.get_json()
       actor = Actors.query.filter(Actors.id == actor_id).one_or_none()
 
@@ -210,37 +211,37 @@ def create_app(test_config=None):
           "message": error.error['description']
       }), error.status_code
 
-    @app.errorhandler(400)
-    def bad_request(error):
-        return jsonify({
-            'success': False,
-            'error': 400,
-            'message': 'Bad request error'
-        }), 400
-
-    @app.errorhandler(404)
-    def not_found_error(error):
-        return jsonify({
+  @app.errorhandler(400)
+  def bad_request(error):
+      return jsonify({
           'success': False,
-          'error': 404,
-          'message': 'Resource not found'
-        }), 404
+          'error': 400,
+          'message': 'Bad request error'
+      }), 400
 
-    @app.errorhandler(500)
-    def server_error(error):
-        return jsonify({
+  @app.errorhandler(404)
+  def not_found_error(error):
+      return jsonify({
+        'success': False,
+        'error': 404,
+        'message': 'Resource not found'
+      }), 404
+
+  @app.errorhandler(500)
+  def server_error(error):
+      return jsonify({
+        'success': False,
+        'error': 500,
+        'message': 'Internal error, please try again.'
+      }), 500
+
+  @app.errorhandler(422)
+  def uncrossable_entity(error):
+      return jsonify({
           'success': False,
-          'error': 500,
-          'message': 'Internal error, please try again.'
-        }), 500
-
-    @app.errorhandler(422)
-    def uncrossable_entity(error):
-        return jsonify({
-            'success': False,
-            'error': 422,
-            'message': 'Uncrossable entity'
-        }), 422
+          'error': 422,
+          'message': 'Uncrossable entity'
+      }), 422
 
   return app
 

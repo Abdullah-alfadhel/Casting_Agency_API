@@ -23,7 +23,7 @@ def setup_migrations(app):
 
 
 def create_and_drop_all():
-    # db.drop_all()
+    db.drop_all()
     db.create_all()
 
 
