@@ -9,14 +9,13 @@ database_path = os.environ['DATABASE_URL']
 db = SQLAlchemy()
 
 
-
-
 def setup_db(app, database_path=database_path):
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
     db.create_all()
+
 
 def setup_migrations(app):
     migrate = Migrate(app, db)
@@ -43,7 +42,6 @@ class Movies(db.Model):
     def __init__(self, title, release_date):
         self.title = title
         self.release_date = release_date
-        
 
     def insert(self):
         db.session.add(self)
@@ -83,7 +81,7 @@ class Actors(db.Model):
         self.name = name
         self.age = age
         self.gender = gender
-    
+
     def insert(self):
         db.session.add(self)
         db.session.commit()

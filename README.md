@@ -1,4 +1,4 @@
-# Full Stack Casting Agency API Backend
+# Capstone
 
 ## Casting Agency Specifications
 
@@ -6,7 +6,7 @@ The Casting Agency models a company that is responsible for creating movies and 
 
 ## Motivation for project
 
-This is the capstone project of Udacity fullstack nanodegree program, which demonstrate the skillset of using Flask, SQLAlchemy, Auth0, gunicorn and heroku to develop and deploy a RESTful API. 
+As the end of the nanoDegree program, we need to create a project where we demonstrate the skills we studded.
 
 ## Getting Started
 
@@ -22,10 +22,10 @@ We recommend working within a virtual environment whenever using Python for proj
 
 #### PIP Dependencies
 
-Once you have your virtual environment setup and running, install dependencies by naviging to the `/backend` directory and running:
+Once you have your virtual environment setup and running, install dependencies by running:
 
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 This will install all of the required packages we selected within the `requirements.txt` file.
@@ -40,14 +40,16 @@ This will install all of the required packages we selected within the `requireme
 
 ## Database Setup
 
-With Postgres running, restore a database using the trivia.psql file provided. From the backend folder in terminal run:
+Creating a database using the migrations file provided. From the main folder in terminal run:
 
 ```bash
-psql casting_agency<casting_agency.psql
+flask db init
+```
+and then run:
+```bash
+flask db migrate 
 ```
 
-more info here:
-https://www.linode.com/docs/databases/postgresql/how-to-back-up-your-postgresql-database/#:~:text=PostgreSQL%20provides%20the%20pg_dump%20utility,you%20intend%20to%20back%20up.&text=Dump%20the%20contents%20of%20a,database%20to%20be%20backed%20up.
 
 ## Running the server
 
@@ -60,56 +62,41 @@ To run the server, execute:
 flask run
 ```
 
-#### Flask run tests the token headers set for the enviroment. If they have expired, you need to login using the crededntials below and replace them in setup.sh and run setup.sh again
+#### Flask run tests with token headers set in the environment. If they have expired, you need to login using the credentials below and replace them in setup.sh and run setup.sh again
 
 setup.sh has all the environment variables needed for the project. The app may fail if they are not set properly. If that happens just copy paste lines from setup.sh on you CLI.
 
 # Project deployed at
 
-https://fsnd-casting-agency-udacity.herokuapp.com/
+https://fsnd-capstone1.herokuapp.com/
 
-###### To test live APIs the only way right now to do this is curl requests. Add Auth token headers from logins below to test.
+###### To test live APIs use Postman requests. Add Auth token headers from logins below to test.
 
-OATH login url. There are three logins atm, JWTs for these appear in the url after successfull login. Those tokens are needed to test the different APIs.
-
-
-https://dev-fc34y9lq.us.auth0.com/authorize?audience=CastingAgencyAPI&response_type=token&client_id=XeqwOu6PsAeC0bwm2dd6giNP0JJaaxIe&redirect_uri=http://localhost:8080/login-results
+Auth0 login url. There are three logins atm, JWTs for these appear in the url after successful login. Those tokens are needed to test the different APIs.
 
 
-casting Assistant token castingassistant@example.com Qwerty1234
+https://dev-exc8ii15.us.auth0.com/authorize?audience=cap&response_type=token&client_id=ECTG0uBj6b6Y7frXy7LrZEBdSR7AmW2P&redirect_uri=https://127.0.0.1:5000/result
 
-```
-eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJWRXNSUnYwWUZRUDdtU3g5VGJ0TSJ9.eyJpc3MiOiJodHRwczovL2Rldi1mYzM0eTlscS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWYyMjAzYzNjMTNiMTMwMjI4ZjgxM2FhIiwiYXVkIjoiQ2FzdGluZ0FnZW5jeUFQSSIsImlhdCI6MTU5NjE0MTQ2NSwiZXhwIjoxNTk2MjI3ODY0LCJhenAiOiJYZXF3T3U2UHNBZUMwYndtMmRkNmdpTlAwSkphYXhJZSIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsidmlldzphY3RvcnMiLCJ2aWV3Om1vdmllcyJdfQ.U39-EK_wkLbqrUnfsTWb7ih1Djn9L30GwdZwanfKVNyXIsa9BDcxd5yUxH8HD_owfAZWxcqqf2hCjJ_wcQDhuFD_Z8jDYvECtFx_KYWncmf2P4vhm_mNf6ENS2Hi2nNUV6YE7X4Mv3rsktI3GrZFppiMVKfNODRf3EbfAOw5VwqQCE8u3Paiurfyoya7frltSOeuf8pU6o3hVkJXwPSlnpN6Rvos_JL1JvodoZFJQJmtWn4CObJ-Nut-17aFjH1gm9ZsZzUfq-ECfcD74e7RKU28y_Rw_0BS6nFO9OVFVJGHuT3JyoCfxfuneNr5Ao6RYedGBqAw4R5l6TtQuxKQhw
 
-```
+casting Assistant username: as@a.com Password: 055914099Kk
 
-Casting director token castingdirector@example.com Qwerty1234
+Casting director username: aa@aa.com 055914099Kk
 
-```
-eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJWRXNSUnYwWUZRUDdtU3g5VGJ0TSJ9.eyJpc3MiOiJodHRwczovL2Rldi1mYzM0eTlscS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWYyMjA2MjI1Yzg0OGYwMDM3YzQxNTJmIiwiYXVkIjoiQ2FzdGluZ0FnZW5jeUFQSSIsImlhdCI6MTU5NjE0MTU2MCwiZXhwIjoxNTk2MjI3OTU5LCJhenAiOiJYZXF3T3U2UHNBZUMwYndtMmRkNmdpTlAwSkphYXhJZSIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiYWRkOmFjdG9ycyIsImRlbGV0ZTphY3RvcnMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDptb3ZpZXMiLCJ2aWV3OmFjdG9ycyIsInZpZXc6bW92aWVzIl19.Zf0BsuoZdBFrkHjIEuPDW5Udt6aJn6qUMWIDpOaoTBxhALV2wRt1aV9qMn9PHihG8RZ_N8rEjpOm6AJGzT-MsDfKUTuF0Ah7CAME8hJ_AdWR0egsjoqb7bosn-cu6VSQNtb7O039dOgm0uX23G95nrbobbfeLg8S3ipSmsyO3IB1B78ebV2NCM8J64DXMCsQwvkJl4OKsNjc0nzxBk6fcjVVkUfftZJW45V6H-NU8Ljc15At1lxQ4SRbdQ3AEpH9lbptCKpKGY-QdAeEgD_gP3uffJbIGfjPEDWy-NMRTt-2ika134hnDvTXEspALVAKHchcp6pRw9pMr8LFmRvLPA
-
-```
-
-Executive Producer executiveproducer@example.com Qwerty1234
-
-```
-eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJWRXNSUnYwWUZRUDdtU3g5VGJ0TSJ9.eyJpc3MiOiJodHRwczovL2Rldi1mYzM0eTlscS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWYyMjRkNGQ1Yzg0OGYwMDM3YzQxNzFkIiwiYXVkIjoiQ2FzdGluZ0FnZW5jeUFQSSIsImlhdCI6MTU5NjE0MTUwNCwiZXhwIjoxNTk2MjI3OTAzLCJhenAiOiJYZXF3T3U2UHNBZUMwYndtMmRkNmdpTlAwSkphYXhJZSIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiYWRkOmFjdG9ycyIsImFkZDptb3ZpZXMiLCJkZWxldGU6YWN0b3JzIiwiZGVsZXRlOm1vdmllcyIsInBhdGNoOmFjdG9ycyIsInBhdGNoOm1vdmllcyIsInZpZXc6YWN0b3JzIiwidmlldzptb3ZpZXMiXX0.BgIe6xAaR5YqxM7j0NFjjLLctZnAKIp2x_q93sZPH8rBkCp3HjSDRLlqmz0KyeEwPyBMjLxQabbr3InJQk8OTq8S7rjoepgPs_zHF3mJrjUqZ3V3JaRX5_IvDf5J_-PfV-I6vxz42q1Mb1wMTBOHxOxj7MvtZ0JSycNGy3aRg1h0RsslV1Zyrcsx5cWk6xstpBylBEhaOTwbqHQTWZklWDE2eRnRAC3YYWrHpIy_xepcn8HNxfBoIFWr11SYxGMkYXEMqRDbQ8UqnUcUpOzxqMJXG913cf9YZegljhEiyZwPtsdlW92KNLNYKkLEPbTPXBwEQl_UmsD769fKc_egvA
-```
+Executive Producer username: az@az.com 055914099Kk
 
 ## Testing
 
 To run the tests, run
 
 ```
-dropdb casting_agency_test
-createdb casting_agency_test
-psql casting_agency_test<casting_agency_test.psql
-python test_flaskr.py
+python test_app.py
 ```
 
 The tests print data returned from the APIs along with API logs.
 
-#### The rests also use the Auth token set in env variables and will give an error if the tokens are expired.
+#### The tests uses the tokens in the setup.sh please update the tokens.
+
+
 
 ## API Reference
 
@@ -120,154 +107,176 @@ Errors are returned as JSON objects in the following format:
 ```
 {
     "success": False,
-    "error": 400,
-    "message": "bad request"
+    "error": 404,
+    "message": "Resource not found"
 }
 
 ```
 
 ### Endpoints
 
-GET '/actors'
-POST '/actors'
-PATCH '/actors/<actor_id>'
-DELETE '/actors/<actor_id>'
 GET '/movies'
+GET '/movies/<movie_id>'
 GET '/actors'
-POST '/actors'
-PATCH '/actors/<actor_id>'
+GET '/actors/<actor_id>'
+DELETE '/movies/<movie_id>'
 DELETE '/actors/<actor_id>'
+POST '/movies'
+POST '/actors'
+PATCH '/movies/<movie_id>'
+PATCH '/actors/<actor_id>'
+
 
 GET '/movies'
 Fetches an array of movies
-Required URL Arguments: None
-Required Data Arguments: None
-Returns: Returns Json data about movies
 Success Response:
 
 ```
 {
+   "success":True,
    "movies":[
       {
-         "genre":"SuperHero",
-         "id":9,
-         "release_date":"2019-01-02",
-         "title":"Avengers"
-      },
-      {
-         "genre":"SuperHero",
-         "id":10,
-         "release_date":"2019-01-02",
-         "title":"Avengers"
+         "id":2,
+         "release_date":"1999-01-01",
+         "title":"my life"
       }
-   ],
-   "success":True
+   ]
 }
 ```
 
-GET '/actors'
+GET '/movies/<movie_id>'
 Fetches an array of actors
-Required Data Arguments: None
-Returns: Json data about actors
 Success Response:
 
 ```
   {
-   "actors":[
+   "success":True,
+   "movie":[
       {
-         "age":22,
-         "gender":"male",
-         "id":10,
-         "name":"rish"
+         "id":2,
+         "release_date":"1999-01-01",
+         "title":"my life"
       }
-   ],
-   "success":True
+   ]
 }
 ```
 
-DELETE '/movies/<int:movie_id>'
-Deletes the movie_id of movie
-Required URL Arguments: movie_id: movie_id_integer
-Required Data Arguments: None
-Returns: deleted movie's ID
+GET '/actors'
+gets all actors in the database
 Success Response:
 
 ```
-{'deleted': 8, 'success': True}
+{
+   "success":True,
+   "actor":{
+      "id":10,
+      "age":30,
+      "gender":"male",
+      "name":"abdullah"
+   }
+}
 ```
 
-DELETE '/actors/<int:actor_id>'
-Deletes the actor_id of actor
-Required URL Arguments: actor_id: actor_id_integer
-Required Data Arguments: None
-Returns:the deleted actor's ID
+GET '/actors/<actor_id>'
+get an actor by id
+Returns:json
 Success Response:
 
 ```
-{'deleted': 9, 'success': True}
+{
+   "success":True,
+   "actor":{
+      "id":10,
+      "age":30,
+      "gender":"male",
+      "name":"abdullah"
+   }
+}
+```
+
+DELETE '/movies/<movie_id>'
+Delete a movie in the database.
+Success Response:
+
+```
+{
+    'success': True,
+    'delete': movie_id
+}
+```
+
+DELETE '/actors/<actor_id>'
+Delete an actor in the database.
+Success Response:
+
+```
+{
+    'success': True,
+    'delete': actor_id
+}
 ```
 
 POST '/movies'
-Post a new movie in a database.
-Required URL Arguments: None
-Required Data Arguments: Json data
+post a movie to the database
 Success Response:
 
 ```
-{'movie_id': 11, 'success': True}
+{
+   "success":True,
+   "movie":{
+      "id":2,
+      "release_date":"1999-01-01",
+      "title":"my life"
+   }
+}
 ```
 
 POST '/actors'
-Post a new actor in a database.
-
-Required URL Arguments: None
-
-Required Data Arguments: Json data
-
-Success Response:
-
-```
-{'actor_id': 11, 'success': True}
-```
-
-PATCH '/movies/<int:movie_id>'
-Updates the movie_id of movie
-Required URL Arguments: movie_id: movie_id_integer
-Required Data Arguments: None
-Returns: Json data about the updated movie
+Post an actor in the database
 Success Response:
 
 ```
 {
-   "movie":{
-      "genre":"SuperHero",
-      "id":9,
-      "release_date":"2019-01-02",
-      "title":"Avengers 2"
-   },
-   "success":True
-}
-```
-
-PATCH '/actors/<int:actor_id>'
-Updates the actor_id of actor
-Required URL Arguments: actor_id: actor_id_integer
-Required Data Arguments: None
-Returns: Json data about the modified actor's ID
-Success Response:
-
-```
-{
+   "success":True,
    "actor":{
-      "age":22,
+      "age":30,
       "gender":"male",
-      "id":10,
-      "name":"gopi"
-   },
-   "success":True
+      "id":2,
+      "name":"abdullah"
+   }
 }
 ```
 
+PATCH '/movies/<movie_id>'
+Edit a movie in the database
+Success Response:
+
+```
+{
+   "success":True,
+   "movie":{
+      "id":2,
+      "release_date":"1999-01-01",
+      "title":"my life"
+   }
+}
+```
+
+PATCH '/actors/<actor_id>'
+Edit an actor in the database
+Success Response:
+
+```
+{
+   "success":True,
+   "actor":{
+      "age":30,
+      "gender":"male",
+      "id":2,
+      "name":"abdullah"
+   }
+}
+```
 ## Authors
 
 Abdullah Alfadhel and udacity team provided the starter code.
